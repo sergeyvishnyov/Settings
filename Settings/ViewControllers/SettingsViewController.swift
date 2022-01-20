@@ -41,6 +41,8 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet private var hotspotView: UIView!
 //    @IBOutlet private var hotspotLabelsView: UIView!
 
+    @IBOutlet private var settingsBluetoothView: BluetoothView!
+    
     var animator = UIViewPropertyAnimator()
     let leading = 40.0
     
@@ -56,28 +58,53 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
         longPressRecognizer.delegate = self
         blockView.addGestureRecognizer(longPressRecognizer)
         
-//        let longPressRecognizer1 = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
-//        longPressRecognizer1.minimumPressDuration = 0.2
-//        longPressRecognizer1.delaysTouchesBegan = true
-//        longPressRecognizer1.delegate = self
-//        bluetoothButton.addGestureRecognizer(longPressRecognizer1)
+        let longPressRecognizer1 = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress1))
+        longPressRecognizer1.minimumPressDuration = 0.2
+//        longPressRecognizer1.numberOfTapsRequired = 1
+        longPressRecognizer1.delaysTouchesBegan = true
+        longPressRecognizer1.delegate = self
+        bluetoothButton.addGestureRecognizer(longPressRecognizer1)
 
         animate(isFull: false, animated: false)
     }
     
-    // MARK: - Actions
+    @objc func handleLongPress1(gestureReconizer: UILongPressGestureRecognizer) {
+        if gestureReconizer.state == .began {
+            animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut){
+                self.bluetoothButton.transform = CGAffineTransform.identity.scaledBy(x: 0.9, y: 0.9)
+            }
+            animator.addCompletion { [self] position in
+                bluetoothButton.transform = CGAffineTransform.identity
+                settingsBluetoothView = UINib(nibName: "BluetoothView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! BluetoothView?
+                settingsBluetoothView.center = view.center
+//                countView.productCollectionViewCell = self
+//                countView.isChooseColor = true
+                view.addSubview(settingsBluetoothView)
+            }
+            animator.startAnimation()
+        }
+//        if gestureReconizer.state == .ended {
+//            animator.stopAnimation(true)
+//            UIView.animate(withDuration: 0.25) {
+//                bluetoothButton.transform = CGAffineTransform.identity
+//            }
+//            print("longpressed ended")
+//
+////            let generator = UIImpactFeedbackGenerator(style: .light)
+////            generator.impactOccurred()
+//        }
+    }
+    
     @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
-        let gestureReconizerView = gestureReconizer.view
-        print(gestureReconizerView)
         if gestureReconizer.state == .began {
             print("longpressed began")
             animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut){
-                gestureReconizerView!.transform = CGAffineTransform.identity.scaledBy(x: 0.9, y: 0.9)
+                self.blockView.transform = CGAffineTransform.identity.scaledBy(x: 0.9, y: 0.9)
             }
             animator.addCompletion { position in
                 print("animator.addCompletion")
                 UIView.animate(withDuration: 0.25, animations: {
-                    gestureReconizerView!.transform = CGAffineTransform.identity
+                    self.blockView.transform = CGAffineTransform.identity
                 }, completion: { complete in
                     self.animate(isFull: true)
                 })
@@ -87,7 +114,7 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
         if gestureReconizer.state == .ended {
             animator.stopAnimation(true)
             UIView.animate(withDuration: 0.25) {
-                gestureReconizerView!.transform = CGAffineTransform.identity
+                self.blockView.transform = CGAffineTransform.identity
             }
             print("longpressed ended")
             
@@ -155,6 +182,7 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    // MARK: - Actions
     @IBAction func buttonPressed(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         switch sender.tag {

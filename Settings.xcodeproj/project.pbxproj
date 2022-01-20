@@ -13,6 +13,8 @@
 		A5BC1A3027994C2700CC0CAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5BC1A2E27994C2700CC0CAF /* LaunchScreen.storyboard */; };
 		A5BC1A3827994DE000CC0CAF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BC1A3727994DE000CC0CAF /* Extensions.swift */; };
 		A5BC1A3A27994E1700CC0CAF /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BC1A3927994E1700CC0CAF /* SettingsViewController.xib */; };
+		A5BC1A3F2799B84200CC0CAF /* BluetoothView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BC1A3E2799B84100CC0CAF /* BluetoothView.swift */; };
+		A5BC1A412799B84A00CC0CAF /* BluetoothView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BC1A402799B84A00CC0CAF /* BluetoothView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		A5BC1A3127994C2700CC0CAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5BC1A3727994DE000CC0CAF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A5BC1A3927994E1700CC0CAF /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		A5BC1A3E2799B84100CC0CAF /* BluetoothView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothView.swift; sourceTree = "<group>"; };
+		A5BC1A402799B84A00CC0CAF /* BluetoothView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BluetoothView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +63,6 @@
 				A5BC1A2E27994C2700CC0CAF /* LaunchScreen.storyboard */,
 				A5BC1A2C27994C2700CC0CAF /* Assets.xcassets */,
 				A5BC1A2327994C2500CC0CAF /* AppDelegate.swift */,
-				A5BC1A3727994DE000CC0CAF /* Extensions.swift */,
 				A5BC1A3D27994E7200CC0CAF /* Model */,
 				A5BC1A3C27994E6A00CC0CAF /* View */,
 				A5BC1A3B27994E6000CC0CAF /* ViewControllers */,
@@ -80,6 +83,7 @@
 		A5BC1A3C27994E6A00CC0CAF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A5BC1A422799C34F00CC0CAF /* Bluetooth */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -87,8 +91,18 @@
 		A5BC1A3D27994E7200CC0CAF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A5BC1A3727994DE000CC0CAF /* Extensions.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		A5BC1A422799C34F00CC0CAF /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				A5BC1A3E2799B84100CC0CAF /* BluetoothView.swift */,
+				A5BC1A402799B84A00CC0CAF /* BluetoothView.xib */,
+			);
+			path = Bluetooth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,6 +166,7 @@
 				A5BC1A3027994C2700CC0CAF /* LaunchScreen.storyboard in Resources */,
 				A5BC1A2D27994C2700CC0CAF /* Assets.xcassets in Resources */,
 				A5BC1A3A27994E1700CC0CAF /* SettingsViewController.xib in Resources */,
+				A5BC1A412799B84A00CC0CAF /* BluetoothView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +180,7 @@
 				A5BC1A2827994C2500CC0CAF /* SettingsViewController.swift in Sources */,
 				A5BC1A3827994DE000CC0CAF /* Extensions.swift in Sources */,
 				A5BC1A2427994C2500CC0CAF /* AppDelegate.swift in Sources */,
+				A5BC1A3F2799B84200CC0CAF /* BluetoothView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

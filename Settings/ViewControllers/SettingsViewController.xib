@@ -15,7 +15,7 @@
                 <outlet property="airmodeLabelsView" destination="dpE-dQ-mIg" id="NGL-Rp-3Qc"/>
                 <outlet property="airmodeView" destination="aK4-oI-LBB" id="yxX-TH-ktU"/>
                 <outlet property="blockView" destination="j0O-vQ-2JF" id="VMh-Pw-dSA"/>
-                <outlet property="bluetoothButton" destination="Gdk-CB-o2M" id="rHV-xS-5wB"/>
+                <outlet property="bluetoothButton" destination="RRV-Zd-aMr" id="4Ha-iO-4zP"/>
                 <outlet property="bluetoothLabelsView" destination="cEC-ZZ-Rfu" id="neS-4f-T0u"/>
                 <outlet property="bluetoothView" destination="7xU-BL-Jfu" id="FUd-bD-iV6"/>
                 <outlet property="celluralLabelsView" destination="4xr-eu-0dM" id="9KY-MZ-hoZ"/>
@@ -293,7 +293,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="evD-M4-7eg"/>
+                                        <action selector="buttonPressed:" destination="-1" eventType="touchUpInside" id="U5a-hy-kyF"/>
                                     </connections>
                                 </button>
                             </subviews>
