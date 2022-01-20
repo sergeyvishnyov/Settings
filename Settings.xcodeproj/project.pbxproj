@@ -15,6 +15,8 @@
 		A5BC1A3A27994E1700CC0CAF /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BC1A3927994E1700CC0CAF /* SettingsViewController.xib */; };
 		A5BC1A3F2799B84200CC0CAF /* BluetoothView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BC1A3E2799B84100CC0CAF /* BluetoothView.swift */; };
 		A5BC1A412799B84A00CC0CAF /* BluetoothView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BC1A402799B84A00CC0CAF /* BluetoothView.xib */; };
+		A5BC1A452799CC8700CC0CAF /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BC1A442799CC8700CC0CAF /* CellView.swift */; };
+		A5BC1A472799CC9C00CC0CAF /* CellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BC1A462799CC9C00CC0CAF /* CellView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		A5BC1A3927994E1700CC0CAF /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		A5BC1A3E2799B84100CC0CAF /* BluetoothView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothView.swift; sourceTree = "<group>"; };
 		A5BC1A402799B84A00CC0CAF /* BluetoothView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BluetoothView.xib; sourceTree = "<group>"; };
+		A5BC1A442799CC8700CC0CAF /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
+		A5BC1A462799CC9C00CC0CAF /* CellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,7 @@
 		A5BC1A3C27994E6A00CC0CAF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A5BC1A432799CC5F00CC0CAF /* CellView */,
 				A5BC1A422799C34F00CC0CAF /* Bluetooth */,
 			);
 			path = View;
@@ -103,6 +108,15 @@
 				A5BC1A402799B84A00CC0CAF /* BluetoothView.xib */,
 			);
 			path = Bluetooth;
+			sourceTree = "<group>";
+		};
+		A5BC1A432799CC5F00CC0CAF /* CellView */ = {
+			isa = PBXGroup;
+			children = (
+				A5BC1A442799CC8700CC0CAF /* CellView.swift */,
+				A5BC1A462799CC9C00CC0CAF /* CellView.xib */,
+			);
+			path = CellView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,6 +177,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5BC1A472799CC9C00CC0CAF /* CellView.xib in Resources */,
 				A5BC1A3027994C2700CC0CAF /* LaunchScreen.storyboard in Resources */,
 				A5BC1A2D27994C2700CC0CAF /* Assets.xcassets in Resources */,
 				A5BC1A3A27994E1700CC0CAF /* SettingsViewController.xib in Resources */,
@@ -178,6 +193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5BC1A2827994C2500CC0CAF /* SettingsViewController.swift in Sources */,
+				A5BC1A452799CC8700CC0CAF /* CellView.swift in Sources */,
 				A5BC1A3827994DE000CC0CAF /* Extensions.swift in Sources */,
 				A5BC1A2427994C2500CC0CAF /* AppDelegate.swift in Sources */,
 				A5BC1A3F2799B84200CC0CAF /* BluetoothView.swift in Sources */,

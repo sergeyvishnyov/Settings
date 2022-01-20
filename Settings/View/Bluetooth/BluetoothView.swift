@@ -39,7 +39,7 @@ class BluetoothView: UIView, UITableViewDelegate, UITableViewDataSource {
 
     // MARK: - UITableView Delegate
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 64
+//        return 46
 //    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

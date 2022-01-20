@@ -17,21 +17,6 @@ extension UIViewController {
 }
 
 extension UIView {
-//    func updateUI()  {
-//        layer.cornerRadius = 10
-//        layer.borderWidth = 1
-//        backgroundColor = .white
-//        layer.borderColor = Settings.shared.colorMain.cgColor
-//    }
-//    func corner() {
-//        layer.cornerRadius = viewHeight / 2
-//    }
-//    func border() {
-//        layer.cornerRadius = 10
-//        layer.borderColor = Settings.shared.colorDisable.cgColor
-//        layer.borderWidth = 0.5
-//        backgroundColor = .white
-//    }
     var viewWidth: CGFloat {
         return frame.size.width
     }
@@ -62,19 +47,7 @@ extension UIView {
     func viewSet(height: CGFloat) {
         frame = CGRect(x: viewX, y: viewY, width: viewWidth, height: height)
     }
-
-    var parentViewController: UIViewController? {
-        var parentResponder: UIResponder? = self
-        while parentResponder != nil {
-            parentResponder = parentResponder!.next
-            if let viewController = parentResponder as? UIViewController {
-                return viewController
-            }
-        }
-        return nil
-    }
 }
-
 
 extension UIImage {
     func imageWithColor(_ color: UIColor) -> UIImage { // For iOS <= 12
