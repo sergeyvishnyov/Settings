@@ -23,8 +23,7 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
     private var settingsBluetoothView: BluetoothView!
 
     var animator = UIViewPropertyAnimator()
-    let animateViewTime = 0.25
-    let animateTapTime = 0.5
+    let animateTime = 0.25
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,18 +38,17 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
         add(.typeHotspot, toView: hotspotView)
 
         let tapPressRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapPress))
+        tapPressRecognizer.delaysTouchesBegan = false
         view.addGestureRecognizer(tapPressRecognizer)
 
         let longPressRecognizerBlock = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressBlock))
         longPressRecognizerBlock.minimumPressDuration = 0.2
         longPressRecognizerBlock.delaysTouchesBegan = true
-        longPressRecognizerBlock.delegate = self
         blockView.addGestureRecognizer(longPressRecognizerBlock)
         
         let longPressRecognizerBluetooth = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressBluetooth))
         longPressRecognizerBluetooth.minimumPressDuration = 0.2
         longPressRecognizerBluetooth.delaysTouchesBegan = true
-        longPressRecognizerBluetooth.delegate = self
         bluetoothButton().addGestureRecognizer(longPressRecognizerBluetooth)
 
         animateBlockView(isFull: false, animated: false)
@@ -73,8 +71,11 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - UIGestureRecognizer Methods
     @objc func handleTapPress(gestureReconizer: UITapGestureRecognizer) {
         if settingsBluetoothView != nil {
-            hideView(settingsBluetoothView)
-            showView(blockView)
+            let point = gestureReconizer.location(in: view)
+            if !settingsBluetoothView.frame.contains(point) {
+                hideView(settingsBluetoothView)
+                showView(blockView)
+            }
         } else {
             animateBlockView(isFull: false)
         }
@@ -82,7 +83,7 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
 
     @objc func handleLongPressBluetooth(gestureReconizer: UILongPressGestureRecognizer) {
         if gestureReconizer.state == .began {
-            UIView.animate(withDuration: animateTapTime) {
+            UIView.animate(withDuration: animateTime) {
                 self.bluetoothButton().transform = CGAffineTransform.identity.scaledBy(x: 0.9, y: 0.9)
             } completion: { [self] complete in
                 bluetoothButton().transform = CGAffineTransform.identity
@@ -93,49 +94,48 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
                 view.addSubview(settingsBluetoothView)
                 hideView(blockView)
                 showView(settingsBluetoothView)
+                haptic()
             }
         }
     }
     
     @objc func handleLongPressBlock(gestureReconizer: UILongPressGestureRecognizer) {
         if gestureReconizer.state == .began {
-            animator = UIViewPropertyAnimator(duration: animateTapTime, curve: .easeOut){
+            animator = UIViewPropertyAnimator(duration: animateTime, curve: .easeOut){
                 self.blockView.transform = CGAffineTransform.identity.scaledBy(x: 0.9, y: 0.9)
             }
-            animator.addCompletion { position in
-                UIView.animate(withDuration: self.animateViewTime, animations: {
+            animator.addCompletion { [self] position in
+                UIView.animate(withDuration: self.animateTime, animations: {
                     self.blockView.transform = CGAffineTransform.identity
                 })
-                self.animateBlockView(isFull: true)
+                animateBlockView(isFull: true)
+                haptic()
             }
             animator.startAnimation()
         }
         if gestureReconizer.state == .ended {
             animator.stopAnimation(true)
-            UIView.animate(withDuration: animateTapTime) {
+            UIView.animate(withDuration: animateTime) {
                 self.blockView.transform = CGAffineTransform.identity
             }
-            
-//            let generator = UIImpactFeedbackGenerator(style: .light)
-//            generator.impactOccurred()
         }
     }
-
+    
     // MARK: - Animate
     func showView(_ view: UIView!) {
         view.transform = CGAffineTransform.identity.scaledBy(x: 0.9, y: 0.9)
-        UIView.animate(withDuration: animateViewTime) {
+        UIView.animate(withDuration: animateTime) {
             view.transform = CGAffineTransform.identity.scaledBy(x: 1.05, y: 1.05)
             view.alpha = 1
         } completion: { complete in
-            UIView.animate(withDuration: self.animateViewTime) {
+            UIView.animate(withDuration: self.animateTime) {
                 view.transform = CGAffineTransform.identity
             }
         }
     }
     
     func hideView(_ view: UIView!) {
-        UIView.animate(withDuration: self.animateViewTime) {
+        UIView.animate(withDuration: animateTime) {
             view.transform = CGAffineTransform.identity.scaledBy(x: 0.01, y: 0.01)
             view.alpha = 0
         } completion: { [self] complete in
@@ -147,48 +147,28 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     func animateBlockView(isFull: Bool, animated: Bool = true) {
-        var blockWidth = 0.0
-        var blockHeight = 0.0
-        var cellWidth = 0.0
-        var cellHeight = 0.0
+        var cellWidth = 80.0
+        var cellHeight = 80.0
+        var blockWidth = cellWidth * 2
+        var blockHeight = cellHeight * 2
         if isFull {
-            blockWidth = 320.0
-            blockHeight = 480.0
-            cellWidth = 160.0
-            cellHeight = 160.0
-        } else {
-            blockWidth = 160.0
-            blockHeight = 160.0
-            cellWidth = 80.0
-            cellHeight = 80.0
+            blockWidth = blockWidth * 2
+            blockHeight = blockHeight * 3
+            cellWidth = cellWidth * 2
+            cellHeight = cellHeight * 2
         }
-        UIView.animate(withDuration: animated ? animateViewTime : 0) { [self] in
+        UIView.animate(withDuration: animated ? animateTime : 0) { [self] in
             blockView.viewSet(width: blockWidth)
             blockView.viewSet(height: blockHeight)
             if isFull {
                 blockView.center = view.center
             }
             
-            airmodeView.viewSet(x: 0)
-            airmodeView.viewSet(y: 0)
-            airmodeView.viewSet(width: cellWidth)
-            airmodeView.viewSet(height: cellHeight)
-            
-            celluralView.viewSet(x: cellWidth)
-            celluralView.viewSet(y: 0)
-            celluralView.viewSet(width: cellWidth)
-            celluralView.viewSet(height: cellHeight)
+            viewSet(airmodeView, x: 0, y: 0, width: cellWidth, height: cellHeight)
+            viewSet(celluralView, x: cellWidth, y: 0, width: cellWidth, height: cellHeight)
+            viewSet(wifiView, x: 0, y: cellWidth, width: cellWidth, height: cellHeight)
+            viewSet(bluetoothView, x: cellWidth, y: cellWidth, width: cellWidth, height: cellHeight)
 
-            wifiView.viewSet(x: 0)
-            wifiView.viewSet(y: cellWidth)
-            wifiView.viewSet(width: cellWidth)
-            wifiView.viewSet(height: cellHeight)
-
-            bluetoothView.viewSet(x: cellWidth)
-            bluetoothView.viewSet(y: cellWidth)
-            bluetoothView.viewSet(width: cellWidth)
-            bluetoothView.viewSet(height: cellHeight)
-            
             airdropView.alpha = isFull ? 1 : 0
             hotspotView.alpha = isFull ? 1 : 0
             
@@ -196,5 +176,17 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
                 cellView.labelsView.alpha = isFull ? 1 : 0
             }
         }
+    }
+    
+    func viewSet(_ view: UIView, x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat) {
+        view.viewSet(x: x)
+        view.viewSet(y: y)
+        view.viewSet(width: width)
+        view.viewSet(height: height)
+    }
+    
+    func haptic() {
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
     }
 }
